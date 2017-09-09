@@ -9,14 +9,15 @@ class BreitbartSpider(scrapy.Spider):
     baseurl = 'http://www.breitbart.com'
     article_counter = 0
 
-    def __init__(self, topic='big-government', max_pages=1,
+    def __init__(self, topic='big-government', start_page=1, end_page=1,
                  fileprefix='data/breitbart'):
         self.topic = topic
-        self.max_pages = max_pages
+        self.start_page = int(start_page)
+        self.end_page = int(end_page)
         self.fileprefix = fileprefix
 
     def start_requests(self):
-        for page in range(1, self.max_pages + 1):
+        for page in range(self.start_page, self.end_page + 1):
             url = f'{self.baseurl}/{self.topic}/page/{page}'
             self.logger.info(f'Scraped {self.article_counter} articles so far')
             yield scrapy.Request(url=url, callback=self.parse_index)
