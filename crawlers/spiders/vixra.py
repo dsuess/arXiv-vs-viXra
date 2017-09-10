@@ -1,17 +1,17 @@
 import functools as ft
 
-import colorama
+from colorama import Fore, init
 
 import scrapy
 
 from .utils import ArticleData, dump_article
 
-colorama.init()
+init()
 
 
 class VixraSpider(scrapy.Spider):
     name = 'vixra'
-    categories = ['clim']
+    categories = ['hep', 'qgst', 'relcos', 'astro', 'quant']
     baseurl = 'http://vixra.org'
 
     def __init__(self, datadir='data/'):
@@ -40,7 +40,8 @@ class VixraSpider(scrapy.Spider):
         self.logger.debug(f'Found {nr_articles} articles in {response.url}')
 
         if len(ids) != len(articles):
-            self.logger.error(colorama.RED + f'Could not match ids and articles')
+            self.logger.error(Fore.RED + f'Could not match ids and articles'
+                              + Fore.RESET_ALL)
             return
 
         for article_id, article in zip(ids, articles):

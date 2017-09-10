@@ -1,22 +1,24 @@
 import logging as logger
 
 import click
-import colorama
+from colorama import init, Fore
 import feedparser
 
 from crawlers.spiders.utils import ArticleData, dump_article
 from tqdm import tqdm
 
-colorama.init()
+init()
 
 
 query_url = 'http://export.arxiv.org/api/query?search_query=cat:{category}&sortBy=lastUpdatedDate&max_results={entries}'
 @click.command()
-@click.argument('category', default='quant-ph', type=str)
-@click.argument('entries', default=1, type=int)
-@click.argument('datadir', default='data/',
-                type=click.Path(exists=True, file_okay=False, dir_okay=True, writable=True))
+@click.option('--category', default='quant-ph', type=str)
+@click.option('--entries', default=1, type=int)
+@click.option('--datadir', default='data/',
+              type=click.Path(exists=True, file_okay=False, dir_okay=True, writable=True))
 def crawl(category, entries, datadir):
+    print()
+    print(f'Crawling {category}')
     query = query_url.format(category=category, entries=entries)
     feed = feedparser.parse(query)
 
@@ -25,7 +27,8 @@ def crawl(category, entries, datadir):
         primary_category = article['arxiv_primary_category']['term']
 
         if primary_category != category:
-            logger.debug(colorama.RED + 'Categories do not match for ' + article_id)
+            logger.debug(Fore.RED + 'Categories do not match for ' + article_id + Fore.RESET)
+
 
         data = ArticleData(id=f'arXiv:{article_id}', title=article['title'],
                            abstract=article['summary'], category=primary_category)
