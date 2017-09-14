@@ -9,4 +9,4 @@ python crawlers/spiders/arxiv.py --category='gr-qc' --entries=1200
 python crawlers/spiders/arxiv.py --category='astro-ph.CO' --entries=600
 python crawlers/spiders/arxiv.py --category='astro-ph.GA' --entries=600
 python crawlers/spiders/arxiv.py --category='astro-ph.HE' --entries=600
-python crawlers/spiders/arxiv.py --category='quant-ph's --entries=2000
+python crawlers/spiders/arxiv.py --category='quant-ph' --entries=2000
