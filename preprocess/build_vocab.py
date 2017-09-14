@@ -1,6 +1,6 @@
 import logging as logger
 import os
-from collections import Counter
+from collections import Counter, OrderedDict
 from glob import glob
 
 import nltk
@@ -54,7 +54,7 @@ def generate_vocab(globpath, stemmatize=None):
 def main(globpath, outpath, stemmatize=None):
     vocab = generate_vocab(globpath)
     with open(outpath, 'w') as buf:
-        simplejson.dump(dict(vocab), buf)
+        simplejson.dump(OrderedDict(vocab.most_common()), buf)
 
 
 if __name__ == '__main__':
