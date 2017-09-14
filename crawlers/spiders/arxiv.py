@@ -14,7 +14,7 @@ query_url = 'http://export.arxiv.org/api/query?search_query=cat:{category}&sortB
 @click.command()
 @click.option('--category', default='quant-ph', type=str)
 @click.option('--entries', default=1, type=int)
-@click.option('--datadir', default='data/',
+@click.option('--datadir', default='data/raw/',
               type=click.Path(exists=True, file_okay=False, dir_okay=True, writable=True))
 def crawl(category, entries, datadir):
     print()

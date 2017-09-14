@@ -14,7 +14,7 @@ class VixraSpider(scrapy.Spider):
     categories = ['hep', 'qgst', 'relcos', 'astro', 'quant']
     baseurl = 'http://vixra.org'
 
-    def __init__(self, datadir='data/'):
+    def __init__(self, datadir='data/raw/'):
         self.datadir = datadir
 
     def start_requests(self):
